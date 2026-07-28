@@ -19,26 +19,42 @@ This write-up is about building the structure needed to accomplish that: what I 
 
 The idea was to build a tool that beginner or beginner-intermediate guitarists could enter their gear into, and use to get some good starting points to use as settings, depending on what type of tone/sound they were trying to get from the equipment they had. I used my own guitars, amps, and pedals as the test data throughout development so that I would have concrete examples to check against.
 
-**Setting up your gear.** Each guitar, amp, and pedal a user owns gets individually added and looked up (and edited, if necessary) on the 'My Gear' page as the first step, to build the foundation for the recommendations that come later.
+#### Setting up your gear. Each guitar, amp, and pedal a user owns gets individually added and looked up (and edited, if necessary) on the 'My Gear' page as the first step, to build the foundation for the recommendations that come later.
 
-<img src="screenshots/pedal_list.png"> - The guitars, amps, and pedals are listed in sections (Pedals section shown)
-<img src="screenshots/pedal_details.png"> - A pedal expanded to show details
-<img src="screenshots/signal_chain.png"> - The current order of the user's pedals.
+The guitars, amps, and pedals are listed in sections (Pedals section shown):
+<img src="screenshots/pedal_list.png">
 
-**Getting a recommendation.** Pick your guitar, amp, which pedals you want taken into consideration, and a genre and 'profile' (sub-genre).
+A pedal expanded to show details:
+<img src="screenshots/pedal_details.png">
 
-<img src="screenshots/tone_rec_a.png"> - Gear, genre, and profile selected.
+The current order of the user's pedals:
+<img src="screenshots/signal_chain.png"> 
+
+
+#### Getting a recommendation. Pick your guitar, amp, which pedals you want taken into consideration, and a genre and 'profile' (sub-genre).
+
+Gear, genre, and profile selected:
+<img src="screenshots/tone_rec_a.png">
 
 The result comes back as a visually represented breakdown with short explanations for each, rather than a block of text.
 
-<img src="screenshots/tone_rec_b.png"> - guitar and amp settings rendered as knob/switch graphics
-<img src="screenshots/tone_rec_c.png"> - per-pedal settings
-<img src="screenshots/tone_rec_d.png"> - troubleshooting tips, and 'refinement' controls
+Guitar and amp settings rendered as knob/switch graphics:
+<img src="screenshots/tone_rec_b.png">
 
-**Optional refinement without starting over.** Select something like "Too muddy / boomy → Make the low end tighter" or "Too thin / weak → Make it fuller, warmer" to have the app take what it initially provided and make some relevant changes.
+Per-pedal settings:
+<img src="screenshots/tone_rec_c.png">
 
-<img src="screenshots/refined_tr_a.png"> - guitar and amp settings after a refinement pass
-<img src="screenshots/refined_tr_b.png"> - pedal settings after that same refinement
+Troubleshooting / tips and 'refinement' controls:
+<img src="screenshots/tone_rec_d.png">
+
+
+#### Optional refinement without starting over. Select something like "Too muddy / boomy → Make the low end tighter" or "Too thin / weak → Make it fuller, warmer" to have the app take what it initially provided and make some relevant changes.
+
+Guitar and amp settings after a refinement pass:
+<img src="screenshots/refined_tr_a.png">
+
+Pedal settings after that same refinement:
+<img src="screenshots/refined_tr_b.png">
 
 ---
 
