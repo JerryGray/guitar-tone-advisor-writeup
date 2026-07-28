@@ -77,7 +77,7 @@ flowchart TD
 
 **4. Reasoning.** A second LLM call generates the recommendation, which must fill in an exact predefined structure: one entry per guitar, amp, and pedal, with named controls and numeric positions.
 
-**5. Fact-checking the LLM's own output.** The app takes the structured answer, rebuilds the signal chain from your saved pedal order to ensure it is rendered correctly, and cross-checks fields like amp channel or pickup selection against the verified facts from step 2, correcting anything that drifted.
+**5. Verifying the LLM's output.** The app takes the structured answer, rebuilds the signal chain from your saved pedal order to ensure it is rendered correctly, and cross-checks fields like amp channel or pickup selection against the verified facts from step 2, correcting anything that drifted.
 
 **6. Rendering.** The final, verified structure becomes the knob/slider/switch graphics displayed, plus a short 'reasoning' text for each choice.
 
