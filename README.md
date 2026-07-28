@@ -62,10 +62,10 @@ Pedal settings after that same refinement:
 
 At a high level, a request for settings goes through four stages:
 ```mermaid
-flowchart LR
-  A["You: pick gear + genre/profile"] --> B["Grounding:\nverify facts about\neach piece of gear"]
-  B --> C["Reasoning:\nLLM builds the\full recommendation"]
-  C --> D["Fact-check:\napp verifies the LLM's\nanswer against real data"]
+flowchart TD
+  A["You: pick gear + genre/profile"] --> B["Grounding:\nreuses cached gear facts,\nlooks up anything new"]
+  B --> C["Reasoning:\nLLM builds the\nfull recommendation"]
+  C --> D["Verify:\napp double-checks the AI's\nanswer against real gear data"]
   D --> E["Rendered result:\nsignal chain, knobs,\nsliders, tips"]
 ```
 
