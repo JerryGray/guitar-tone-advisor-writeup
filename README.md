@@ -73,9 +73,9 @@ flowchart TD
 
 **1. Your gear gets entered and verified first, as specific models.** Before any recommendation happens, you build a persistent list of what you actually own. Each item is looked up individually and stored with its own real controls, so the app never falls back on generic assumptions about what a pedal of that general type is usually like. If a lookup gets something wrong, it's directly editable, and a correction from you is treated as ground truth from then on.
 
-**2. You select which guitar, amp, and pedals you are currently working with - or leave the Guitar and/or Amp for the AI to decide from the gear you own. ** From there, you select a genre and profile, and indicate whether or not you are playing at low ("bedroom") volumes.
+**2. You select which guitar, amp, and pedals you are currently working with - or leave the Guitar and/or Amp for the AI to decide from the gear you own.** From there, you select a genre and profile, and indicate whether or not you are playing at low ("bedroom") volumes.
 
-**3. Gear selection (conditional). This step only runs if the Guitar field, the Amp field, or both were left open to more than one candidate. If it does run, a lightweight LLM call narrows each open field down to one item using the goal and information about the specific guitars/amps to make a recommendation before the Reasoning call that determines specific settings.
+**3. Gear selection (conditional).** This step only runs if the Guitar field, the Amp field, or both were left open to more than one candidate. If it does run, a lightweight LLM call narrows each open field down to one item using the goal and information about the specific guitars/amps to make a recommendation before the Reasoning call that determines specific settings.
 
 **4. Grounding.** This runs on every recommendation request, but for gear you've already added and looked up on My Gear, it's essentially instant; the app just confirms nothing new needs to be looked up, without calling the model or running a search. It only does actual work for gear that was added but never looked up: for well-known gear, it can answer from what it already knows, and for anything less certain, it runs a real web search and saves the result so that specific item never needs looking up again.
 
