@@ -31,12 +31,13 @@ The current order of the user's pedals:
 <img src="screenshots/signal_chain.png"> 
 
 
-#### Getting a recommendation. Pick your guitar, amp, which pedals you want taken into consideration, and a genre and 'profile' (sub-genre).
+#### Getting a recommendation. Pick your guitar and amp - or let the AI pick for you - choose which pedals you want taken into consideration, and set a genre and 'profile' (sub-genre).
+Guitar and amp each default to a dropdown selection populated with options from the My Gear page. If you have more than a single guitar or amp entered, each of these fields also displays a toggle ("Let the AI choose...") that swaps the dropdown for a checklist of everything you own in that category, all selected by default.
 
-Gear, genre, and profile selected:
+Gear, genre, and profile selected, with the Guitar field left to the AI:
 <img src="screenshots/tone_rec_a.png">
 
-The result comes back as a visually represented breakdown with short explanations for each, rather than a block of text.
+The result comes back as a visually represented breakdown with short explanations for each, rather than a block of text. If the AI picked a Guitar or Amp (or both), the reasoning for that selection is shown above the settings for that piece of gear.
 
 Guitar and amp settings rendered as knob/switch graphics:
 <img src="screenshots/tone_rec_b.png">
@@ -63,23 +64,26 @@ Pedal settings after that same refinement:
 At a high level, a request for settings goes through four stages:
 ```mermaid
 flowchart TD
-  A["You: pick gear + genre/profile"] --> B["Grounding:\nreuses cached gear facts,\nlooks up anything new"]
-  B --> C["Reasoning:\nLLM builds the\nfull recommendation"]
-  C --> D["Verify:\napp double-checks the AI's\nanswer against real gear data"]
-  D --> E["Rendered result:\nsignal chain, knobs,\nsliders, tips"]
+  A["You: pick gear + genre/profile (or leave the Guitar and/or Amp up to the AI)"] --> B["Gear selection: only runs if guitar or amp was left open"]
+  B --> C["Grounding:\nreuses cached gear facts,\nlooks up anything new"]
+  C --> D["Reasoning:\nLLM builds the\nfull recommendation"]
+  D --> E["Verify:\napp double-checks the AI's\nanswer against real gear data"]
+  E --> F["Rendered result:\nsignal chain, knobs,\nsliders, tips"]
 ```
 
 **1. Your gear gets entered and verified first, as specific models.** Before any recommendation happens, you build a persistent list of what you actually own. Each item is looked up individually and stored with its own real controls, so the app never falls back on generic assumptions about what a pedal of that general type is usually like. If a lookup gets something wrong, it's directly editable, and a correction from you is treated as ground truth from then on.
 
-**2. You select which guitar, amp, and pedals you are currently working with.** From there, you select a genre and profile, and indicate whether or not you are playing at low ("bedroom") volumes.
+**2. You select which guitar, amp, and pedals you are currently working with - or leave the Guitar and/or Amp for the AI to decide from the gear you own. ** From there, you select a genre and profile, and indicate whether or not you are playing at low ("bedroom") volumes.
 
-**3. Grounding.** This runs on every recommendation request, but for gear you've already added and looked up on My Gear, it's essentially instant; the app just confirms nothing new needs to be looked up, without calling the model or running a search. It only does actual work for gear that was added but never looked up: for well-known gear, it can answer from what it already knows, and for anything less certain, it runs a real web search and saves the result so that specific item never needs looking up again.
+**3. Gear selection (conditional). This step only runs if the Guitar field, the Amp field, or both were left open to more than one candidate. If it does run, a lightweight LLM call narrows each open field down to one item using the goal and information about the specific guitars/amps to make a recommendation before the Reasoning call that determines specific settings.
 
-**4. Reasoning.** A second LLM call generates the recommendation, which must fill in an exact predefined structure: one entry per guitar, amp, and pedal, with named controls and numeric positions.
+**4. Grounding.** This runs on every recommendation request, but for gear you've already added and looked up on My Gear, it's essentially instant; the app just confirms nothing new needs to be looked up, without calling the model or running a search. It only does actual work for gear that was added but never looked up: for well-known gear, it can answer from what it already knows, and for anything less certain, it runs a real web search and saves the result so that specific item never needs looking up again.
 
-**5. Verifying the LLM's output.** The app takes the structured answer, rebuilds the signal chain from your saved pedal order to ensure it is rendered correctly, and cross-checks fields like amp channel or pickup selection against the verified facts from step 2, correcting anything that drifted.
+**5. Reasoning.** A second LLM call generates the recommendation, which must fill in an exact predefined structure: one entry per guitar, amp, and pedal, with named controls and numeric positions.
 
-**6. Rendering.** The final, verified structure becomes the knob/slider/switch graphics displayed, plus a short 'reasoning' text for each choice.
+**6. Verifying the LLM's output.** The app takes the structured answer, rebuilds the signal chain from your saved pedal order to ensure it is rendered correctly, and cross-checks fields like amp channel or pickup selection against the verified facts from step 2, correcting anything that drifted.
+
+**7. Rendering.** The final, verified structure becomes the knob/slider/switch graphics displayed, plus a short 'reasoning' text for each choice.
 
 ---
 
@@ -135,5 +139,4 @@ I kept a running log of issues I ran into while building this. A few of the nota
  - **Named, saved tone scenarios.** Let a result be saved under a name and reloaded later from a dropdown, instead of only being reachable by re-entering the same gear combination and tone goal.
  - **Direct control editing before saving.** Let the recommended knob/slider/switch settings be adjusted by hand after the fact. Use the AI's recommendation as a starting point, tweak what needs tweaking, and save that as the named tone rather than the unedited original.
  - **Default gear.** Let a guitar or amp be marked as the default when you own more than one of each, so the advisor pre-selects it instead of defaulting to first-entered every time.
- - **"Let AI choose from everything I own."** The beginning of an auto-select mode where the model picks the best combination from your full inventory for a given tone goal, rather than you specifying the rig up front.
  - Longer term, this project is step two in a deliberate progression — the next stage moves from LangChain reasoning-plus-tools into retrieval-augmented generation with a real vector database, building toward a flagship RAG project.
